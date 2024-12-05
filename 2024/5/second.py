@@ -23,19 +23,18 @@ for pageNumbers in pageNumbersList:
     for ruleKey, ruleItems in rules.items():
         if ruleKey in pageNumbers:
             keyIndex = pageNumbers.index(ruleKey)
-            if keyIndex != -1:
-                for ruleItem in ruleItems:
-                    if ruleItem in pageNumbers:
-                        ruleItemIndex = pageNumbers.index(ruleItem)
-                        if ruleItemIndex < keyIndex:
-                            incorrect = True
-                            pageNumbers = [
-                                *pageNumbers[:ruleItemIndex],
-                                ruleKey,
-                                *pageNumbers[ruleItemIndex:keyIndex],
-                                *pageNumbers[keyIndex + 1:]
-                            ]
-                            keyIndex = ruleItemIndex
+            for ruleItem in ruleItems:
+                if ruleItem in pageNumbers:
+                    ruleItemIndex = pageNumbers.index(ruleItem)
+                    if ruleItemIndex < keyIndex:
+                        incorrect = True
+                        pageNumbers = [
+                            *pageNumbers[:ruleItemIndex],
+                            ruleKey,
+                            *pageNumbers[ruleItemIndex:keyIndex],
+                            *pageNumbers[keyIndex + 1:]
+                        ]
+                        keyIndex = ruleItemIndex
     if incorrect:
         accumulator += pageNumbers[int((len(pageNumbers) - 1) / 2)]
 
